@@ -3,6 +3,7 @@ import { StoreProvider } from '../src/components/StoreProvider';
 import { ClientLayoutWrapper } from '../src/components/layout/ClientLayoutWrapper';
 import { ToastProvider } from '../src/contexts/ToastContext';
 import AudioPlayer from '../src/components/layout/AudioPlayer';
+import ErrorBoundary from '../src/components/ui/ErrorBoundary';
 
 export default function RootLayout({
   children,
@@ -12,12 +13,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <StoreProvider>
-          <ToastProvider>
-            <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
-            <AudioPlayer />
-          </ToastProvider>
-        </StoreProvider>
+        <ErrorBoundary>
+          <StoreProvider>
+            <ToastProvider>
+              <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+              <AudioPlayer />
+            </ToastProvider>
+          </StoreProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

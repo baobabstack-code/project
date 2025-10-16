@@ -43,8 +43,8 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-blue-900/20 to-dark">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="py-24 bg-gradient-to-b from-purple-900/20 to-dark">
+      <div className="container-responsive">
         <div className="text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

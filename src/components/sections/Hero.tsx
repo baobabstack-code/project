@@ -13,9 +13,9 @@ const Hero: React.FC = () => {
   const [showBooking, setShowBooking] = useState(false);
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-dark via-blue-900 to-dark">
+    <div className="relative overflow-hidden bg-gradient-to-b from-dark via-purple-900/20 to-dark">
       {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-indigo-500/10" />
       
       {/* Animated background elements */}
       <div className="absolute inset-0">
@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
             >
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
                 Transforming Ideas into{' '}
-                <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
                   Digital Reality
                 </span>
               </h1>
@@ -69,10 +69,10 @@ const Hero: React.FC = () => {
 
       {/* Modal for CalendarBooking */}
       {showBooking && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="bg-[#18192a] rounded-xl shadow-lg p-6 max-w-lg w-full relative max-h-[90vh] overflow-y-auto">
+        <div className="modal-container">
+          <div className="modal-content relative p-6 max-w-4xl">
             <button
-              className="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl"
+              className="absolute top-4 right-4 z-10 text-gray-400 hover:text-white text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
               onClick={() => setShowBooking(false)}
               aria-label="Close"
             >

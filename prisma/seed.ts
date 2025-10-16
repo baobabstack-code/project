@@ -9,7 +9,7 @@ async function main() {
 
     // Helper function to read JSON files
     const readJsonFile = (filename: string) => {
-        const filePath = path.join(process.cwd(), 'data', filename);
+        const filePath = path.join(process.cwd(), 'public', 'data', filename);
         const fileContent = fs.readFileSync(filePath, 'utf-8');
         return JSON.parse(fileContent);
     };

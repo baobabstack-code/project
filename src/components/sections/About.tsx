@@ -45,8 +45,8 @@ const About: React.FC = () => {
   if (error) return <div className="text-center text-red-500 py-20">{error}</div>;
 
   return (
-    <section className="py-24 bg-gradient-to-b from-dark to-blue-900/20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="py-24 bg-gradient-to-b from-dark to-purple-900/20">
+      <div className="container-responsive">
         {/* Company Overview */}
         <div className="text-center mb-20">
           <motion.h2

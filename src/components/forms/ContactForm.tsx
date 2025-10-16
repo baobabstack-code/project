@@ -4,7 +4,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Button from "../ui/Button";
-import { Phone, Mail, ArrowRight, ArrowLeft } from "lucide-react";
+import Input from "../ui/Input";
+import Select from "../ui/Select";
+import Textarea from "../ui/Textarea";
+import { Phone, Mail, ArrowRight, ArrowLeft, User, Building } from "lucide-react";
 // Contact form now uses direct API route calls
 import { useToast } from "../../contexts/ToastContext";
 
@@ -86,14 +89,22 @@ const ContactForm: React.FC = () => {
     }
   };
 
+  const subjectOptions = [
+    { value: "General Inquiry", label: "General Inquiry" },
+    { value: "Service Request", label: "Service Request" },
+    { value: "Partnership Opportunity", label: "Partnership Opportunity" },
+    { value: "Technical Support", label: "Technical Support" },
+    { value: "Other", label: "Other" },
+  ];
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="grid-responsive-2">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {currentStep === 0 && (
             <motion.div
               key="step1"
@@ -101,85 +112,47 @@ const ContactForm: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.3 }}
-              className="space-y-4"
+              className="space-y-6"
             >
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-300 mb-1"
-                >
-                  Your Name *
-                </label>
-                <input
-                  id="name"
-                  {...register("name")}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  placeholder="John Doe"
-                  aria-required="true"
-                  aria-label="Your Name"
-                />
-                {errors.name && (
-                  <p className="mt-1 text-sm text-red-400">
-                    {errors.name.message}
-                  </p>
-                )}
-              </div>
+              <Input
+                id="name"
+                label="Your Name"
+                placeholder="John Doe"
+                required
+                icon={<User />}
+                error={errors.name?.message}
+                {...register("name")}
+              />
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-300 mb-1"
-                >
-                  Email Address *
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  {...register("email")}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  placeholder="john@example.com"
-                  aria-required="true"
-                  aria-label="Email Address"
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-400">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
+              <Input
+                id="email"
+                type="email"
+                label="Email Address"
+                placeholder="john@example.com"
+                required
+                icon={<Mail />}
+                error={errors.email?.message}
+                {...register("email")}
+              />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-gray-300 mb-1"
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    {...register("phone")}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    placeholder="+1 (555) 123-4567"
-                    aria-label="Phone Number"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="company"
-                    className="block text-sm font-medium text-gray-300 mb-1"
-                  >
-                    Company
-                  </label>
-                  <input
-                    id="company"
-                    {...register("company")}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    placeholder="Your Company"
-                    aria-label="Company"
-                  />
-                </div>
+              <div className="form-grid">
+                <Input
+                  id="phone"
+                  type="tel"
+                  label="Phone Number"
+                  placeholder="+1 (555) 123-4567"
+                  icon={<Phone />}
+                  error={errors.phone?.message}
+                  {...register("phone")}
+                />
+                <Input
+                  id="company"
+                  label="Company"
+                  placeholder="Your Company"
+                  icon={<Building />}
+                  error={errors.company?.message}
+                  {...register("company")}
+                />
               </div>
             </motion.div>
           )}
@@ -191,128 +164,66 @@ const ContactForm: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.3 }}
-              className="space-y-4"
+              className="space-y-6"
             >
-              <div>
-                <label
-                  htmlFor="subject"
-                  className="block text-sm font-medium text-gray-300 mb-1"
-                >
-                  Subject *
-                </label>
-                <select
-                  id="subject"
-                  {...register("subject")}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 custom-select"
-                  defaultValue=""
-                  aria-required="true"
-                  aria-label="Subject"
-                >
-                  <option value="" disabled className="custom-select-option">
-                    Select a subject
-                  </option>
-                  <option
-                    value="General Inquiry"
-                    className="custom-select-option"
-                  >
-                    General Inquiry
-                  </option>
-                  <option
-                    value="Service Request"
-                    className="custom-select-option"
-                  >
-                    Service Request
-                  </option>
-                  <option
-                    value="Partnership Opportunity"
-                    className="custom-select-option"
-                  >
-                    Partnership Opportunity
-                  </option>
-                  <option
-                    value="Technical Support"
-                    className="custom-select-option"
-                  >
-                    Technical Support
-                  </option>
-                  <option value="Other" className="custom-select-option">
-                    Other
-                  </option>
-                </select>
-                {errors.subject && (
-                  <p className="mt-1 text-sm text-red-400">
-                    {errors.subject.message}
-                  </p>
-                )}
-              </div>
+              <Select
+                id="subject"
+                label="Subject"
+                placeholder="Select a subject"
+                required
+                options={subjectOptions}
+                error={errors.subject?.message}
+                {...register("subject")}
+              />
 
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-300 mb-1"
-                >
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  {...register("message")}
-                  rows={4}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  placeholder="Tell us about your project or questions..."
-                  aria-required="true"
-                  aria-label="Message"
-                />
-                {errors.message && (
-                  <p className="mt-1 text-sm text-red-400">
-                    {errors.message.message}
-                  </p>
-                )}
-              </div>
+              <Textarea
+                id="message"
+                label="Message"
+                placeholder="Tell us about your project or questions..."
+                rows={4}
+                required
+                error={errors.message?.message}
+                {...register("message")}
+              />
 
-              <div className="space-y-3">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="subscribeToNewsletter"
-                      type="checkbox"
-                      {...register("subscribeToNewsletter")}
-                      className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-                      aria-label="Subscribe to newsletter"
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="subscribeToNewsletter"
-                      className="text-gray-300"
-                    >
-                      Subscribe to our newsletter for updates
-                    </label>
-                  </div>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <input
+                    id="subscribeToNewsletter"
+                    type="checkbox"
+                    {...register("subscribeToNewsletter")}
+                    className="mt-1 h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500 bg-white/5 border-white/10"
+                    aria-label="Subscribe to newsletter"
+                  />
+                  <label
+                    htmlFor="subscribeToNewsletter"
+                    className="text-sm text-gray-300 leading-5"
+                  >
+                    Subscribe to our newsletter for updates
+                  </label>
                 </div>
 
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="agreeToPrivacyPolicy"
-                      type="checkbox"
-                      {...register("agreeToPrivacyPolicy")}
-                      className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-                      aria-label="Agree to privacy policy"
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
+                <div className="flex items-start gap-3">
+                  <input
+                    id="agreeToPrivacyPolicy"
+                    type="checkbox"
+                    {...register("agreeToPrivacyPolicy")}
+                    className="mt-1 h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500 bg-white/5 border-white/10"
+                    aria-label="Agree to privacy policy"
+                  />
+                  <div className="text-sm">
                     <label
                       htmlFor="agreeToPrivacyPolicy"
-                      className="text-gray-300"
+                      className="text-gray-300 leading-5"
                     >
                       I agree to the{" "}
                       <a
                         href="/privacy-policy"
-                        className="text-purple-400 hover:text-purple-300"
+                        className="text-purple-400 hover:text-purple-300 underline"
                       >
                         privacy policy
                       </a>{" "}
-                      *
+                      <span className="text-red-400">*</span>
                     </label>
                     {errors.agreeToPrivacyPolicy && (
                       <p className="mt-1 text-sm text-red-400">
@@ -325,15 +236,16 @@ const ContactForm: React.FC = () => {
             </motion.div>
           )}
 
-          <div className="flex justify-between mt-6">
+          <div className="flex flex-col sm:flex-row justify-between gap-4 mt-8">
             {currentStep > 0 && (
               <Button
                 type="button"
                 variant="secondary"
                 onClick={handlePrevious}
+                className="w-full sm:w-auto"
                 aria-label="Previous Step"
               >
-                <ArrowLeft size={20} className="mr-2" aria-hidden="true" />{" "}
+                <ArrowLeft size={20} className="mr-2" aria-hidden="true" />
                 Previous
               </Button>
             )}
@@ -342,10 +254,10 @@ const ContactForm: React.FC = () => {
                 type="button"
                 variant="primary"
                 onClick={handleNext}
-                className="ml-auto"
+                className="w-full sm:w-auto sm:ml-auto"
                 aria-label="Next Step"
               >
-                Next{" "}
+                Next
                 <ArrowRight size={20} className="ml-2" aria-hidden="true" />
               </Button>
             )}
@@ -369,11 +281,11 @@ const ContactForm: React.FC = () => {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="lg:pl-6"
       >
-        <div className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 backdrop-blur-sm border border-white/10 rounded-lg p-6">
+        <div className="glass-card p-6 sm:p-8 h-fit">
           <h3 className="text-xl font-semibold text-white mb-4">
             Get in Touch
           </h3>
-          <p className="text-gray-400 mb-6">
+          <p className="text-gray-400 mb-6 text-responsive">
             Have questions about our services? Need a custom solution for your
             business? Fill out the form or contact us directly using the
             information below.
@@ -381,12 +293,12 @@ const ContactForm: React.FC = () => {
 
           <div className="space-y-4 mb-6">
             <div className="flex items-center">
-              <Phone className="h-5 w-5 text-purple-400 mr-3" />
-              <span className="text-gray-300">+1 (555) 123-4567</span>
+              <Phone className="h-5 w-5 text-purple-400 mr-3 flex-shrink-0" />
+              <span className="text-gray-300 text-responsive">+1 (555) 123-4567</span>
             </div>
             <div className="flex items-center">
-              <Mail className="h-5 w-5 text-purple-400 mr-3" />
-              <span className="text-gray-300">info@baobabstack.com</span>
+              <Mail className="h-5 w-5 text-purple-400 mr-3 flex-shrink-0" />
+              <span className="text-gray-300 text-responsive">info@baobabstack.com</span>
             </div>
           </div>
 
@@ -394,7 +306,7 @@ const ContactForm: React.FC = () => {
             <h4 className="text-lg font-medium text-white mb-3">
               Business Hours
             </h4>
-            <ul className="space-y-2 text-gray-300">
+            <ul className="space-y-2 text-gray-300 text-responsive">
               <li>Monday - Friday: 9:00 AM - 6:00 PM EST</li>
               <li>Saturday: 10:00 AM - 2:00 PM EST</li>
               <li>Sunday: Closed</li>

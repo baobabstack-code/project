@@ -60,9 +60,9 @@ const Services: React.FC = () => {
   if (error) return <div className="text-center text-red-500 py-20">{error}</div>;
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="spacing-responsive relative overflow-hidden">
       <motion.div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        className="container-responsive"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -87,7 +87,7 @@ const Services: React.FC = () => {
             Discover how our comprehensive digital solutions can transform your business, drive innovation, and deliver measurable results in a rapidly evolving world.
           </motion.p>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid-responsive">
           {services.map((service, index) => {
             const Icon = service.icon && ICONS[service.icon] ? ICONS[service.icon] : Monitor;
             return (
@@ -99,7 +99,7 @@ const Services: React.FC = () => {
                   boxShadow: "0 10px 25px -5px rgba(167, 139, 250, 0.4)",
                   background: "linear-gradient(to bottom right, rgba(126, 34, 206, 0.3), rgba(79, 70, 229, 0.2))"
                 }}
-                className="card-gradient rounded-lg p-6 transition-all duration-300 backdrop-blur-sm border border-purple-500/10"
+                className="glass-card rounded-lg p-6 transition-all duration-300 backdrop-blur-sm border border-purple-500/10"
               >
                 <motion.div
                   className="bg-white/10 rounded-lg p-3 w-fit mb-4"

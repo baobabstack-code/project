@@ -68,8 +68,8 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-dark to-blue-900/20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="py-24 bg-gradient-to-b from-dark to-purple-900/20">
+      <div className="container-responsive">
         <div className="text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

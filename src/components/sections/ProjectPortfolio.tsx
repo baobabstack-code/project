@@ -106,7 +106,7 @@ const ProjectPortfolio: React.FC = () => {
       />
       
       <motion.div 
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+        className="container-responsive relative z-10"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"

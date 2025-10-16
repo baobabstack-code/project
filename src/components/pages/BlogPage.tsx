@@ -97,15 +97,18 @@ const BlogPage: React.FC = () => {
                   transition={{ duration: 0.5, delay: 0.3 + idx * 0.1 }}
                   className="bg-gray-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-transform duration-300"
                 >
-                  <img
-                    src={
-                      post.featuredImage && post.featuredImage.trim() !== ""
-                        ? post.featuredImage
-                        : "/blog/default.jpg"
-                    }
-                    alt={post.title || "Blog featured image"}
-                    className="w-full h-64 object-cover"
-                  />
+                  <div className="w-full h-64 relative overflow-hidden">
+                    <img
+                      src={
+                        post.featuredImage && post.featuredImage.trim() !== ""
+                          ? post.featuredImage
+                          : "/blog/default.jpg"
+                      }
+                      alt={post.title || "Blog featured image"}
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="p-6">
                     <span className="px-3 py-1 bg-blue-500 text-white text-sm rounded-full mb-4 inline-block">
                       {post.categories && post.categories.length > 0

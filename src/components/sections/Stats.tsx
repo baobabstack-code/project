@@ -99,7 +99,7 @@ const Stats: React.FC = () => {
           background: "radial-gradient(circle at center, rgba(139, 92, 246, 0.15), transparent 70%)"
         }}
       />
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="container-responsive relative z-10">
         {loading ? (
           <div className="text-center text-white py-10">Loading stats...</div>
         ) : error ? (

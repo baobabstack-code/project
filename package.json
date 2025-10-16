@@ -10,6 +10,7 @@
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
     "test": "jest",
+    "health-check": "node scripts/health-check.js",
     "postinstall": "prisma generate",
     "db:seed": "tsx prisma/seed.ts",
     "db:reset": "npx prisma migrate reset && npm run db:seed"
@@ -21,6 +22,7 @@
     "axios": "^1.10.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "critters": "^0.0.23",
     "dotenv": "^16.5.0",
     "framer-motion": "^11.0.5",
     "lodash.debounce": "^4.0.8",

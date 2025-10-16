@@ -38,12 +38,12 @@ const Header: React.FC = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-blue/90 backdrop-blur-md shadow-sm' : 'bg-dark'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'nav-blur shadow-sm' : 'bg-dark'}`}>
+      <div className="container-responsive">
         <div className="flex justify-between items-center py-4 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-500 bg-clip-text text-transparent">
                 Baobab Stack
               </span>
             </Link>
@@ -67,8 +67,8 @@ const Header: React.FC = () => {
                 href={item.href}
                 className={`text-base font-medium ${
                   isActive(item.href)
-                    ? 'text-indigo-600'
-                    : 'text-purple-400 hover:text-indigo-600'
+                    ? 'text-purple-400'
+                    : 'text-gray-300 hover:text-purple-400'
                 }`}>
                 {item.name}
               </Link>
@@ -76,27 +76,25 @@ const Header: React.FC = () => {
           </nav>
 
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <Link href="/signin" className="whitespace-nowrap text-base font-medium text-purple-400 hover:text-indigo-600 mr-6">
-              Sign in
-            </Link>
+            {/* Sign in button removed */}
             <Button variant="primary">Book a Call</Button>
           </div>
         </div>
       </div>
       {/* Mobile menu */}
-      <div className={`${isOpen ? 'block' : 'hidden'} absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-50`}>
-        <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+      <div className={`${isOpen ? 'block' : 'hidden'} absolute top-0 inset-x-0 p-4 transition transform origin-top-right md:hidden z-50`}>
+        <div className="glass-card divide-y-2 divide-white/10">
           <div className="pt-5 pb-6 px-5">
             <div className="flex items-center justify-between">
               <div>
-                <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">
+                <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-500 bg-clip-text text-transparent">
                   Baobab Stack
                 </Link>
               </div>
               <div className="-mr-2">
                 <button
                   type="button"
-                  className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none"
+                  className="bg-white/10 rounded-md p-2 inline-flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/20 focus:outline-none transition-colors"
                   onClick={toggleMenu}
                   aria-label="Close menu"
                 >
@@ -110,30 +108,20 @@ const Header: React.FC = () => {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`-m-3 p-3 flex items-center rounded-md hover:bg-gray-50 ${
-                      isActive(item.href) ? 'bg-gray-50' : ''
+                    className={`-m-3 p-3 flex items-center rounded-md hover:bg-white/10 transition-colors ${
+                      isActive(item.href) ? 'bg-white/10' : ''
                     }`}>
-                    <span className="ml-3 text-base font-medium text-gray-900" onClick={toggleMenu}>{item.name}</span>
+                    <span className="ml-3 text-base font-medium text-white" onClick={toggleMenu}>{item.name}</span>
                   </Link>
                 ))}
               </nav>
             </div>
           </div>
-          <div className="py-6 px-5 space-y-6">
-            <div>
-              <Link
-                href="/signin"
-                className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                onClick={toggleMenu}
-              >
-                Sign in
-              </Link>
-            </div>
-            <div>
-              <Button variant="primary" className="w-full" onClick={toggleMenu}>
-                Book a Call
-              </Button>
-            </div>
+          <div className="py-6 px-5 space-y-4">
+            {/* Sign in button removed from mobile menu */}
+            <Button variant="primary" className="w-full" onClick={toggleMenu}>
+              Book a Call
+            </Button>
           </div>
         </div>
       </div>
