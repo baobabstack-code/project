@@ -11,6 +11,23 @@
 
 - **Updated all forms to use standardized components:**
   - `ContactForm.tsx` - Multi-step form with consistent spacing and mobile-responsive buttons
+
+Environment variables for contact form email delivery:
+
+```
+# Resend API key (create at https://resend.com)
+RESEND_API_KEY=your_resend_api_key
+
+# From address shown in emails (must be a verified domain or sender)
+EMAIL_FROM="Baobab Stack <no-reply@yourdomain.com>"
+
+# Where contact submissions are sent
+CONTACT_TO_EMAIL=you@example.com
+```
+
+Notes:
+- If `CONTACT_TO_EMAIL` is not set, the API will skip the admin notification email.
+- User confirmation email is always attempted to the submitter's email.
   - `NewsletterForm.tsx` - Simplified with proper icon integration
   - `CalendarBooking.tsx` - Improved layout with better time slot selection
 

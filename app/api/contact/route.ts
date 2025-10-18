@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { prisma } from "../../../src/lib/prisma";
+import { renderAdminNotification, renderUserConfirmation, sendEmail } from "../../../src/lib/email";
 
 // Validation schema for contact form submission
 const contactSchema = z.object({
@@ -34,30 +36,62 @@ export async function POST(request: NextRequest) {
 
     const formData = validationResult.data;
 
-    // TODO: In a real implementation, you would:
-    // 1. Save contact form submission to database
-    // 2. Send notification email to admin
-    // 3. Send confirmation email to user
-    // 4. If subscribeToNewsletter is true, add to newsletter list
+    // Persist submission
+    const submission = await prisma.contactFormSubmission.create({
+      data: {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || null,
+        company: formData.company || null,
+        subject: formData.subject,
+        message: formData.message,
+        subscribeToNewsletter: formData.subscribeToNewsletter,
+        agreeToPrivacyPolicy: formData.agreeToPrivacyPolicy,
+        submittedAt: new Date(),
+      },
+    });
 
-    // For now, we'll simulate the contact form processing
-    const contactSubmission = {
-      id: Date.now(), // Simple ID generation for demo
-      ...formData,
-      submittedAt: new Date().toISOString(),
-    };
+    // Email notifications
+    const adminEmail = process.env.CONTACT_TO_EMAIL || process.env.EMAIL_TO || process.env.NEXT_PUBLIC_CONTACT_EMAIL;
+    if (!adminEmail) {
+      console.warn("CONTACT_TO_EMAIL not set; skipping admin email notification");
+    } else {
+      const adminHtml = renderAdminNotification({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        subject: formData.subject,
+        message: formData.message,
+      });
+      try {
+        await sendEmail({ to: adminEmail, subject: `New contact: ${formData.subject}`, html: adminHtml });
+      } catch (e) {
+        console.error("Failed to send admin notification email", e);
+      }
+    }
 
-    // Log the contact form submission (in production, save to database)
-    console.log("Contact form submission:", contactSubmission);
-
-    // If user opted to subscribe to newsletter, handle that too
-    if (formData.subscribeToNewsletter) {
-      console.log("Also subscribing to newsletter:", formData.email);
+    try {
+      const userHtml = renderUserConfirmation(formData.name);
+      await sendEmail({ to: formData.email, subject: "We received your message", html: userHtml });
+    } catch (e) {
+      console.error("Failed to send user confirmation email", e);
     }
 
     return NextResponse.json(
       {
-        data: contactSubmission,
+        data: {
+          id: submission.id,
+          name: submission.name,
+          email: submission.email,
+          phone: submission.phone || undefined,
+          company: submission.company || undefined,
+          subject: submission.subject,
+          message: submission.message,
+          subscribeToNewsletter: submission.subscribeToNewsletter,
+          agreeToPrivacyPolicy: submission.agreeToPrivacyPolicy,
+          submittedAt: submission.submittedAt.toISOString(),
+        },
         message: "Contact form submitted successfully",
       },
       { status: 201 }

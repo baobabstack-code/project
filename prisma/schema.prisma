@@ -218,6 +218,14 @@ model ContactFormSubmission {
   submittedAt            DateTime @default(now())
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
+  status                 ContactStatus @default(NEW)
+  adminNote              String?
 
   @@map("contact_form_submissions")
+}
+
+enum ContactStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
 }

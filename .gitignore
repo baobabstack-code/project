@@ -39,3 +39,6 @@ next-env.d.ts
 .vercel
 
 /src/generated/prisma
+
+# clerk configuration (can include secrets)
+/.clerk/
