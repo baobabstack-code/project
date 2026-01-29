@@ -47,7 +47,7 @@ const randomRange = (min: number, max: number) => Math.random() * (max - min) + 
 
 // --- Components ---
 
-const AntiGravityCanvas: React.FC = () => {
+const ParticleEffectForHero: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [debugInfo, setDebugInfo] = useState({ count: 0, fps: 0 });
@@ -337,22 +337,42 @@ const AntiGravityCanvas: React.FC = () => {
     mouseRef.current.isActive = false;
   };
 
+  // Touch Handlers for mobile support
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!containerRef.current || e.touches.length === 0) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    mouseRef.current = {
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top,
+      isActive: true,
+    };
+  };
+
+  const handleTouchEnd = () => {
+    mouseRef.current.isActive = false;
+  };
+
   return (
     <div 
       ref={containerRef} 
-      className="fixed inset-0 z-0 overflow-hidden bg-black cursor-crosshair"
+      className="fixed inset-0 z-0 overflow-hidden bg-black"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
-      <canvas ref={canvasRef} className="block w-full h-full" />
+      <canvas ref={canvasRef} className="block w-full h-full" aria-hidden="true" />
       
-      {/* Debug Info Overlay (Hidden in production usually, but cool for tech demos) */}
-      <div className="absolute bottom-4 right-4 pointer-events-none text-xs text-white/20 font-mono text-right">
-        <p>{debugInfo.count} entities</p>
-        <p>{debugInfo.fps} FPS</p>
-      </div>
+      {/* Debug Info Overlay - Only shown in development */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="absolute bottom-4 right-4 pointer-events-none text-xs text-white/20 font-mono text-right">
+          <p>{debugInfo.count} entities</p>
+          <p>{debugInfo.fps} FPS</p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default AntiGravityCanvas;
+export default ParticleEffectForHero;
