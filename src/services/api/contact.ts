@@ -1,7 +1,5 @@
 import { prisma } from '../../lib/prisma';
 
-// Contact forms now use Next.js API routes instead of Strapi
-
 export interface ContactInfo {
   email: string;
   phone?: string;
