@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { promises as fs } from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-dynamic';
+
 async function getStaticFallback() {
     try {
         const filePath = path.join(process.cwd(), 'public', 'data', 'pricing.json');

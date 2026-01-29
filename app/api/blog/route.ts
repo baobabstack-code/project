@@ -31,14 +31,14 @@ async function getStaticFallback(limit: number, offset: number) {
 }
 
 export async function GET(request: NextRequest) {
-    try {
-        const { searchParams } = new URL(request.url);
-        const limit = searchParams.get('limit');
-        const offset = searchParams.get('offset');
+    const { searchParams } = new URL(request.url);
+    const limit = parseInt(searchParams.get('limit') || '10');
+    const offset = parseInt(searchParams.get('offset') || '0');
 
+    try {
         const params = {
-            ...(limit && { limit: parseInt(limit) }),
-            ...(offset && { offset: parseInt(offset) }),
+            limit,
+            offset,
         };
 
         const result = await fetchBlogPosts(params);
@@ -46,10 +46,6 @@ export async function GET(request: NextRequest) {
     } catch (error) {
         console.error('API Error (using fallback):', error);
         // Fallback to static JSON data when database is unavailable
-        const { searchParams } = new URL(request.url);
-        const limit = parseInt(searchParams.get('limit') || '10');
-        const offset = parseInt(searchParams.get('offset') || '0');
-        
         const fallbackData = await getStaticFallback(limit, offset);
         return NextResponse.json(fallbackData);
     }

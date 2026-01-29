@@ -32,14 +32,13 @@ async function getStaticFallback(page: number, limit: number, search: string) {
 }
 
 export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const page = parseInt(searchParams.get('page') || '1');
+  const limit = parseInt(searchParams.get('limit') || '10');
+  const search = searchParams.get('search') || '';
+  const skip = (page - 1) * limit;
+
   try {
-    const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '10');
-    const search = searchParams.get('search') || '';
-
-    const skip = (page - 1) * limit;
-
     const where = search ? {
       OR: [
         { content: { contains: search, mode: 'insensitive' as const } },
@@ -59,11 +58,6 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching testimonials (using fallback):', error);
     // Fallback to static JSON data when database is unavailable
-    const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '10');
-    const search = searchParams.get('search') || '';
-    
     const fallbackData = await getStaticFallback(page, limit, search);
     return NextResponse.json(fallbackData);
   }
