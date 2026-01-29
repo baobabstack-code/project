@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Calendar, Award, Briefcase } from 'lucide-react';
+import { Users, Calendar, Award, Briefcase, CheckCircle, Clock } from 'lucide-react';
 import { fetchStats, Stat } from '@/services/api/stats';
 
 interface StatItemProps {
@@ -61,9 +61,15 @@ const StatItem: React.FC<StatItemProps> = ({ icon, value, label }) => {
 
 const iconMap: Record<string, React.ReactNode> = {
   users: <Users className="h-6 w-6 text-purple-400" />,
+  Users: <Users className="h-6 w-6 text-purple-400" />,
   calendar: <Calendar className="h-6 w-6 text-purple-400" />,
+  Calendar: <Calendar className="h-6 w-6 text-purple-400" />,
   award: <Award className="h-6 w-6 text-purple-400" />,
+  Award: <Award className="h-6 w-6 text-purple-400" />,
   briefcase: <Briefcase className="h-6 w-6 text-purple-400" />,
+  Briefcase: <Briefcase className="h-6 w-6 text-purple-400" />,
+  CheckCircle: <CheckCircle className="h-6 w-6 text-purple-400" />,
+  Clock: <Clock className="h-6 w-6 text-purple-400" />,
 };
 
 const Stats: React.FC = () => {

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Monitor, Zap, Bot, BarChart } from 'lucide-react';
+import { Monitor, Zap, Bot, BarChart, Globe, Smartphone, Cloud, Settings, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Service } from '@/services/api/services';
 
@@ -10,6 +10,11 @@ const ICONS: Record<string, React.ElementType> = {
   Zap,
   Bot,
   BarChart,
+  Globe,
+  Smartphone,
+  Cloud,
+  Settings,
+  TrendingUp,
 };
 
 const Services: React.FC = () => {
