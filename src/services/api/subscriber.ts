@@ -1,7 +1,5 @@
 import { prisma } from '../../lib/prisma';
 
-// Subscribers now use Next.js API routes instead of Strapi
-
 export interface Subscriber {
   id: number;
   email: string;

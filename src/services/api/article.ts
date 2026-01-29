@@ -1,4 +1,3 @@
-// This service has been migrated to use static data instead of Strapi
 import { getStaticData, getStaticItem } from '../dataService';
 
 export interface Article {
