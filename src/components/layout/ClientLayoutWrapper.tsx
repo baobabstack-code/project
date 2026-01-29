@@ -6,13 +6,13 @@ import Header from './Header';
 import Footer from './Footer';
 import { ToastProvider } from '../../contexts/ToastContext';
 
-const StarField = dynamic(() => import('../ui/StarField'), { ssr: false });
+const ParticleEffectForHero = dynamic(() => import('../ui/particle-effect-for-hero'), { ssr: false });
 
 export function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
   return (
     <>
       <ToastProvider>
-        <StarField />
+        <ParticleEffectForHero />
         <div className="relative z-10">
           <Header />
           <main>{children}</main>
