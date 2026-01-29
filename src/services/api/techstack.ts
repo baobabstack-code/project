@@ -2,16 +2,21 @@ export interface TechStackItem {
   id: number;
   name: string;
   icon: string;
+  category?: string;
+  description?: string;
 }
 
-export const fetchTechStack = async () => {
+export const fetchTechStack = async (): Promise<{ data: TechStackItem[], success: boolean, message?: string }> => {
   try {
     const response = await fetch('/api/techstack');
     if (!response.ok) {
       throw new Error('Failed to fetch tech stack');
     }
-    const data = await response.json();
-    return { data, success: true };
+    const result = await response.json();
+    return { 
+      data: result.data || result, 
+      success: true 
+    };
   } catch (error) {
     return {
       data: [],

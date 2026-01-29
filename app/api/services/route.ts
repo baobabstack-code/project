@@ -1,15 +1,29 @@
 import { NextResponse } from 'next/server';
 import { fetchServices } from '../../../src/services/api/services';
+import { promises as fs } from 'fs';
+import path from 'path';
+
+// Force dynamic rendering for API route
+export const dynamic = 'force-dynamic';
+
+async function getStaticFallback() {
+    try {
+        const filePath = path.join(process.cwd(), 'public', 'data', 'services.json');
+        const fileContent = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(fileContent);
+    } catch {
+        return { data: [] };
+    }
+}
 
 export async function GET() {
     try {
         const result = await fetchServices();
         return NextResponse.json(result);
     } catch (error) {
-        console.error('API Error:', error);
-        return NextResponse.json(
-            { error: 'Failed to fetch services' },
-            { status: 500 }
-        );
+        console.error('API Error (using fallback):', error);
+        // Fallback to static JSON data when database is unavailable
+        const fallbackData = await getStaticFallback();
+        return NextResponse.json(fallbackData);
     }
 }

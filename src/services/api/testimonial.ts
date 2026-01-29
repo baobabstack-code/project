@@ -35,7 +35,9 @@ export async function fetchTestimonials(
       throw new Error('Failed to fetch testimonials');
     }
     const data = await response.json();
-    return { data, success: true };
+    // Handle both array and object responses
+    const testimonials = Array.isArray(data) ? data : (data.data || data);
+    return { data: testimonials, success: true };
   } catch (error) {
     return {
       data: [],

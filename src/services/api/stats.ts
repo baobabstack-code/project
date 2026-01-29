@@ -5,14 +5,17 @@ export interface Stat {
   label: string;
 }
 
-export const fetchStats = async () => {
+export const fetchStats = async (): Promise<{ data: Stat[], success: boolean, message?: string }> => {
   try {
     const response = await fetch('/api/stats');
     if (!response.ok) {
       throw new Error('Failed to fetch stats');
     }
-    const data = await response.json();
-    return { data, success: true };
+    const result = await response.json();
+    return { 
+      data: result.data || result,
+      success: true 
+    };
   } catch (error) {
     return {
       data: [],

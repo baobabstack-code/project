@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Calendar, Award, Briefcase } from 'lucide-react';
+import { Users, Calendar, Award, Briefcase, CheckCircle, Clock } from 'lucide-react';
 import { fetchStats, Stat } from '@/services/api/stats';
 
 interface StatItemProps {
@@ -59,11 +59,20 @@ const StatItem: React.FC<StatItemProps> = ({ icon, value, label }) => {
   );
 };
 
-const iconMap: Record<string, React.ReactNode> = {
+// Icon components mapped to normalized lowercase keys
+const iconComponents: Record<string, React.ReactNode> = {
   users: <Users className="h-6 w-6 text-purple-400" />,
   calendar: <Calendar className="h-6 w-6 text-purple-400" />,
   award: <Award className="h-6 w-6 text-purple-400" />,
   briefcase: <Briefcase className="h-6 w-6 text-purple-400" />,
+  checkcircle: <CheckCircle className="h-6 w-6 text-purple-400" />,
+  clock: <Clock className="h-6 w-6 text-purple-400" />,
+};
+
+// Normalize icon name and get the corresponding component
+const getIcon = (iconName: string): React.ReactNode => {
+  const normalizedName = iconName.toLowerCase();
+  return iconComponents[normalizedName] || <Award className="h-6 w-6 text-purple-400" />;
 };
 
 const Stats: React.FC = () => {
@@ -133,7 +142,7 @@ const Stats: React.FC = () => {
                 }}
               >
                 <StatItem
-                  icon={iconMap[stat.icon] || <Award className="h-6 w-6 text-purple-400" />} // fallback icon
+                  icon={getIcon(stat.icon)}
                   value={stat.value}
                   label={stat.label}
                 />

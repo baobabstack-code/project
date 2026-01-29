@@ -5,14 +5,17 @@ export interface Feature {
   icon?: string;
 }
 
-export const fetchFeatures = async () => {
+export const fetchFeatures = async (): Promise<{ data: Feature[], success: boolean, message?: string }> => {
   try {
     const response = await fetch('/api/features');
     if (!response.ok) {
       throw new Error('Failed to fetch features');
     }
-    const data = await response.json();
-    return { data, success: true };
+    const result = await response.json();
+    return { 
+      data: result.data || result, 
+      success: true 
+    };
   } catch (error) {
     return {
       data: [],

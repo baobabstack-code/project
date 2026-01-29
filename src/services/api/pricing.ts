@@ -7,14 +7,17 @@ export interface PricingPlan {
   popular?: boolean;
 }
 
-export const fetchPricingPlans = async () => {
+export const fetchPricingPlans = async (): Promise<{ data: PricingPlan[], success: boolean, message?: string }> => {
   try {
     const response = await fetch('/api/pricing');
     if (!response.ok) {
       throw new Error('Failed to fetch pricing plans');
     }
-    const data = await response.json();
-    return { data, success: true };
+    const result = await response.json();
+    return { 
+      data: result.data || result, 
+      success: true 
+    };
   } catch (error) {
     return {
       data: [],
