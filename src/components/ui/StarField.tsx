@@ -31,8 +31,8 @@ const StarField: React.FC<StarFieldProps> = ({ children }) => {
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: Math.random() * 2 + 0.5,
-        delay: Math.random() * 5,
-        duration: Math.random() * 3 + 2,
+        delay: Math.random() * 2,
+        duration: Math.random() * 1.5 + 0.8,
         color: colors[Math.floor(Math.random() * colors.length)],
         brightness: 1
       }));
@@ -43,8 +43,8 @@ const StarField: React.FC<StarFieldProps> = ({ children }) => {
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: Math.random() * 3 + 2,
-        delay: Math.random() * 5,
-        duration: Math.random() * 2 + 1,
+        delay: Math.random() * 2,
+        duration: Math.random() * 1 + 0.5,
         color: '#FFFFFF',
         brightness: Math.random() * 2 + 2
       }));
@@ -55,8 +55,8 @@ const StarField: React.FC<StarFieldProps> = ({ children }) => {
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: Math.random() * 4 + 3,
-        delay: Math.random() * 5,
-        duration: Math.random() * 1.5 + 0.5,
+        delay: Math.random() * 1,
+        duration: Math.random() * 0.6 + 0.3,
         color: '#FFFFFF',
         brightness: Math.random() * 3 + 4
       }));
