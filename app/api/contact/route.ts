@@ -56,15 +56,15 @@ export async function POST(request: NextRequest) {
     if (!adminEmail) {
       console.warn("CONTACT_TO_EMAIL not set; skipping admin email notification");
     } else {
-      const adminHtml = renderAdminNotification({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        company: formData.company,
-        subject: formData.subject,
-        message: formData.message,
-      });
       try {
+        const adminHtml = await renderAdminNotification({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          subject: formData.subject,
+          message: formData.message,
+        });
         await sendEmail({ to: adminEmail, subject: `New contact: ${formData.subject}`, html: adminHtml });
       } catch (e) {
         console.error("Failed to send admin notification email", e);
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-      const userHtml = renderUserConfirmation(formData.name);
+      const userHtml = await renderUserConfirmation(formData.name);
       await sendEmail({ to: formData.email, subject: "We received your message", html: userHtml });
     } catch (e) {
       console.error("Failed to send user confirmation email", e);

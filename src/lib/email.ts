@@ -1,3 +1,7 @@
+import { render } from '@react-email/components';
+import { AdminNotificationEmail, AdminNotificationEmailProps } from '../emails/AdminNotificationEmail';
+import { UserConfirmationEmail } from '../emails/UserConfirmationEmail';
+
 export interface SendEmailParams {
     to: string | string[];
     subject: string;
@@ -41,38 +45,12 @@ export async function sendEmail({ to, subject, html, from }: SendEmailParams): P
     }
 }
 
-export function renderAdminNotification(params: {
-    name: string;
-    email: string;
-    phone?: string;
-    company?: string;
-    subject: string;
-    message: string;
-}): string {
-    const { name, email, phone, company, subject, message } = params;
-    return `
-        <div style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #111">
-            <h2>New Contact Form Submission</h2>
-            <p><strong>Subject:</strong> ${subject}</p>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
-            ${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
-            <hr />
-            <p style="white-space: pre-wrap">${message}</p>
-        </div>
-    `;
+export async function renderAdminNotification(params: AdminNotificationEmailProps): Promise<string> {
+    return await render(AdminNotificationEmail(params));
 }
 
-export function renderUserConfirmation(name: string): string {
-    return `
-        <div style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #111">
-            <h2>Thanks for contacting Baobab Stack</h2>
-            <p>Hi ${name},</p>
-            <p>We received your message and will get back to you shortly.</p>
-            <p>Best regards,<br/>Baobab Stack Team</p>
-        </div>
-    `;
+export async function renderUserConfirmation(name: string): Promise<string> {
+    return await render(UserConfirmationEmail({ name }));
 }
 
 
