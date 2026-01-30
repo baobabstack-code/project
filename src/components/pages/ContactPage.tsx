@@ -1,31 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { ContactInfo } from '../../services/api/contact';
+import React from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
 const ContactForm = dynamic(() => import('../forms/ContactForm'), { ssr: false });
 
 const ContactPage: React.FC = () => {
-  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+  // Removed unused contactInfo state variable
+  // const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
 
-  useEffect(() => {
-    const getContactInfo = async () => {
-      try {
-        const response = await fetch('/api/contact-info');
-        if (!response.ok) {
-          throw new Error('Failed to fetch contact info');
-        }
-        const result = await response.json();
-        setContactInfo(result.data);
-      } catch (error) {
-        console.error('Failed to fetch contact info:', error);
-      }
-    };
-
-    getContactInfo();
-  }, []);
+  // Removed unused useEffect that fetches contact info
+  // This was likely for a future feature that hasn't been implemented yet
 
   return (
     <div className="">
