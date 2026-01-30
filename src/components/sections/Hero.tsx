@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
         </div>
 
         <div className="relative pt-32 pb-16 sm:pt-40 sm:pb-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
