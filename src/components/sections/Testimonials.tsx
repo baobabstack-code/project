@@ -68,7 +68,7 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-dark to-purple-900/20">
+    <section className="py-12 bg-gradient-to-b from-dark to-purple-900/20">
       <div className="container-responsive">
         <div className="text-center">
           <motion.h2

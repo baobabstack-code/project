@@ -65,7 +65,7 @@ const Services: React.FC = () => {
   if (error) return <div className="text-center text-red-500 py-20">{error}</div>;
 
   return (
-    <section className="spacing-responsive relative overflow-hidden">
+    <section className="py-8 sm:py-10 lg:py-12 relative overflow-hidden">
       <motion.div
         className="container-responsive"
         variants={containerVariants}

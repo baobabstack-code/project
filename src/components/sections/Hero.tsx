@@ -8,22 +8,26 @@ import dynamic from 'next/dynamic';
 
 // Dynamically import CalendarBooking for modal
 const CalendarBooking = dynamic(() => import('../forms/CalendarBooking'), { ssr: false });
+// Dynamically import StarField for background animation
+const StarField = dynamic(() => import('../ui/StarField'), { ssr: false });
 
 const Hero: React.FC = () => {
   const [showBooking, setShowBooking] = useState(false);
 
   return (
     <div className="relative overflow-hidden bg-gradient-to-b from-dark via-purple-900/20 to-dark">
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-indigo-500/10" />
-      
-      {/* Animated background elements */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
-      </div>
+      {/* StarField background animation */}
+      <StarField>
+        {/* Background gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-indigo-500/10" />
+        
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+        </div>
 
-      <div className="relative pt-32 pb-16 sm:pt-40 sm:pb-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="relative pt-32 pb-8 sm:pt-40 sm:pb-12">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -65,7 +69,8 @@ const Hero: React.FC = () => {
           </div>
 
         </div>
-      </div>
+        </div>
+      </StarField>
 
       {/* Modal for CalendarBooking */}
       {showBooking && (

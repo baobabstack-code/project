@@ -48,7 +48,7 @@ const Portfolio: React.FC = () => {
   if (error) return <div className="text-center text-red-500 py-20">{error}</div>;
 
   return (
-    <section className="py-24 bg-gradient-to-b from-purple-900/20 to-dark">
+    <section className="py-12 bg-gradient-to-b from-purple-900/20 to-dark">
       <div className="container-responsive">
         <div className="text-center">
           <motion.h2

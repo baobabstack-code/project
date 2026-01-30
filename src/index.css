@@ -87,7 +87,7 @@
 
 .star {
   @apply absolute rounded-full;
-  animation: twinkle var(--duration, s) ease-in-out infinite;
+  animation: twinkle var(--duration, 2s) ease-in-out infinite;
   transform-origin: center;
   will-change: transform, opacity;
 }
