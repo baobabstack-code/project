@@ -26,7 +26,7 @@ const Hero: React.FC = () => {
           <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
         </div>
 
-        <div className="relative pt-32 pb-16 sm:pt-40 sm:pb-24">
+        <div className="relative pt-32 pb-8 sm:pt-40 sm:pb-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <motion.div

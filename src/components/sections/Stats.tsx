@@ -97,7 +97,7 @@ const Stats: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-16 px-4 bg-gray-900/50 relative overflow-hidden">
+    <section className="py-8 px-4 bg-gray-900/50 relative overflow-hidden">
       <motion.div
         className="absolute inset-0 z-0"
         initial={{ opacity: 0 }}
