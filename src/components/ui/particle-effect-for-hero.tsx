@@ -154,8 +154,8 @@ const ParticleEffectForHero: React.FC = () => {
       if (p.y < 0) p.y = canvas.height;
       if (p.y > canvas.height) p.y = 0;
 
-      // Twinkle effect
-      const twinkle = Math.sin(time * 0.002 + p.phase) * 0.5 + 0.5; // 0 to 1
+      // Twinkle effect (faster speed)
+      const twinkle = Math.sin(time * 0.005 + p.phase) * 0.5 + 0.5; // 0 to 1
       const currentAlpha = p.alpha * (0.3 + 0.7 * twinkle);
 
       ctx.globalAlpha = currentAlpha;
