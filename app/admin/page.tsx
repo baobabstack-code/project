@@ -2,14 +2,15 @@ import { prisma } from '../../src/lib/prisma';
 import SubmissionsTable from '../../src/components/admin/SubmissionsTable';
 import { assertAdmin } from '../../src/lib/authz';
 
-export default async function AdminSubmissionsPage({ searchParams }: { searchParams: { q?: string; status?: string; page?: string; } }) {
+export default async function AdminSubmissionsPage({ searchParams }: { searchParams: Promise<{ q?: string; status?: string; page?: string; }> }) {
   await assertAdmin();
 
-  const page = Number(searchParams?.page || '1');
+  const searchParamsResolved = await searchParams;
+  const page = Number(searchParamsResolved?.page || '1');
   const take = 20;
   const skip = (page - 1) * take;
-  const q = (searchParams?.q || '').trim();
-  const status = (searchParams?.status || '').trim();
+  const q = (searchParamsResolved?.q || '').trim();
+  const status = (searchParamsResolved?.status || '').trim();
 
   const where: any = {};
   if (q) {
