@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../../../src/lib/prisma';
 import { assertAdmin } from '../../../../../src/lib/authz';
 
-export async function GET(_request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await assertAdmin();
-    const id = Number(params.id);
+    const { id: idParam } = await params;
+    const id = Number(idParam);
     const item = await prisma.contactFormSubmission.findUnique({ where: { id } });
     if (!item) return NextResponse.json({ error: 'Not found' }, { status: 404 });
     return NextResponse.json({ data: item });
@@ -15,10 +16,11 @@ export async function GET(_request: NextRequest, { params }: { params: { id: str
   }
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await assertAdmin();
-    const id = Number(params.id);
+    const { id: idParam } = await params;
+    const id = Number(idParam);
     const body = await request.json();
     const data: any = {};
     if (body.status) data.status = body.status;
